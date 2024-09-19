@@ -6,11 +6,6 @@ output: github_document
 
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
-change
 
 ## R Markdown
 
@@ -18,16 +13,57 @@ This is an R Markdown document. Markdown is a simple formatting syntax for autho
 
 When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
 
-```{r cars}
-summary(cars)
+
+
+install.packages("palmerpenguins")
+data("penguins", package = "palmerpenguins")
+
+```{r}
+view(penguins)
 ```
+
+```{r}
+nrow(penguins)
+ncol(penguins)
+```
+
+
+```{r}
+mean(penguins$flipper_length_mm, na.rm = TRUE)
+```
+
+
+## Description
+There are 344 observations of 8 variables in the penguins dataset, displayed by 8 columns and 344 rows.
+
+The 8 variables are
+- species (Adelie, Gentoo, Chinstra)
+- island (Torgersen, Biscoe, Dream)
+- bill_length_mm (value for bill length in mm)
+- bill_depth_mm (value for bill depth in mm )
+- flipper_length_mm (value for flipper length in mm)
+- body_mass_g (value for body mass in grams)
+- sex (male/female)
+- year (2007/2008/2009)
+
+The mean flipper length is 200.9152 
+
 
 ## Including Plots
+install.packages("ggplot2")
+library (ggplot2)
 
-You can also embed plots, for example:
+```{r}
+penguins_clean <- na.omit(penguins)
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+ggplot(penguins_clean, aes(x = bill_length_mm, y = flipper_length_mm, color = species)) +
+  geom_point() +
+  labs(
+    title = "Scatterplot of Flipper Length vs Bill Length",
+    x = "Bill Length (mm)",
+    y = "Flipper Length (mm)"
+  ) +
+  theme_minimal()
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
