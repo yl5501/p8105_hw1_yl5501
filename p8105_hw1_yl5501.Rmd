@@ -14,6 +14,7 @@ This is an R Markdown document. Markdown is a simple formatting syntax for autho
 When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
 
 
+## Problem 1
 
 install.packages("palmerpenguins")
 data("penguins", package = "palmerpenguins")
@@ -64,6 +65,55 @@ ggplot(penguins_clean, aes(x = bill_length_mm, y = flipper_length_mm, color = sp
     y = "Flipper Length (mm)"
   ) +
   theme_minimal()
+```
+ggsave("scatterplot_penguins.png")
+
+
+## Problem 2
+library(tidyverse)
+
+# Create a data frame
+```{r}
+set.seed(123)  # Set seed for reproducibility
+df <- tibble(
+  random_sample = rnorm(10),  # Random sample from standard normal distribution
+  logical_vector = rnorm(10) > 0,  # Logical vector indicating if values > 0
+  character_vector = c("a", "b", "c", "d", "e", "f", "g", "h", "i", "j"),  # Character vector
+  factor_vector = factor(rep(c("level1", "level2", "level3"), length.out = 10))  # Factor vector
+)
+```
+
+```{r}
+df
+```
+
+```{r}
+mean_random_sample <- mean(df$random_sample)
+mean_logical_vector <- mean(df$logical_vector)
+mean_character_vector <- try(mean(df$character_vector), silent = TRUE)  # Use try to handle error
+mean_factor_vector <- try(mean(df$factor_vector), silent = TRUE)
+
+mean_random_sample
+mean_logical_vector
+mean_character_vector
+mean_factor_vector
+```
+## What works and what doesn't?
+mean_random_sample and mean_logical_vector worked.
+mean_character_vector and mean_factor_vector didn't work.
+
+
+## Use as.numeric to convert variables from one type to another
+```{r}
+as.numeric(df$logical_vector)
+```
+
+```{r}
+as.numeric(df$character_vector)
+```
+
+```{r}
+as.numeric(df$factor_vector)
 ```
 
 
